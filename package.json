@@ -1,0 +1,88 @@
+{
+    "name": "file-header-generator-oa",
+    "displayName": "File Header Generator oa",
+    "description": "Adds a professional, standard file header to source code files via right-click menu.",
+    "icon": "icon.png",
+    "publisher": "oaslananka",
+    "version": "0.0.2",
+    "engines": {
+        "vscode": "^1.99.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "configuration": {
+            "properties": {
+                "fileHeaderGenerator.author": {
+                    "type": "string",
+                    "default": "oaslananka",
+                    "description": "default author name for file header"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "file-header-generator.addHeader",
+                "title": "📝 Add Standard File Header"
+            },
+            {
+                "command": "file-header-generator.addHeaderToFile",
+                "title": "📝 Add Header to This File"
+            },
+            {
+                "command": "file-header-generator.addHeaderToSelection",
+                "title": "🗂️ Add Header to Selected Files"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "file-header-generator.addHeader",
+                    "when": "editorLangId =~ /^(python|javascript|typescript|java|c|cpp|html|shellscript|go|ruby|xml)$/",
+                    "group": "navigation"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "file-header-generator.addHeaderToFile",
+                    "when": "explorerResourceIsFile",
+                    "group": "navigation"
+                },
+                {
+                    "command": "file-header-generator.addHeaderToSelection",
+                    "when": "explorerResourceIsFolder || resourceLangId =~ /(python|javascript|typescript|cpp|c|java|shellscript)/",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "file-header-generator.addHeader",
+                "key": "ctrl+alt+h",
+                "when": "editorTextFocus"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.99.0",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@typescript-eslint/eslint-plugin": "^8.31.1",
+        "@typescript-eslint/parser": "^8.31.1",
+        "eslint": "^9.25.1",
+        "typescript": "^5.8.3",
+        "@vscode/test-cli": "^0.0.10",
+        "@vscode/test-electron": "^2.5.2"
+    }
+}
